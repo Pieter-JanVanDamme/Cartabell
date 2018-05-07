@@ -1,0 +1,43 @@
+<div class="addEntryDialogWrapper">
+<h3 mat-dialog-title>New Scribble</h3>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="entryTitle">
+    <mat-error>Title required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+      <textarea matInput placeholder="Scribble at will..." matTextareaAutosize matAutosizeMinRows="3"
+                matAutosizeMaxRows="8" formControlName="entryContents"></textarea>
+      <mat-error>Contents required</mat-error>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="entryIsKeynote">Mark as Keynote</mat-checkbox>
+
+  <div class="ui segment cf">
+    <div class="ui float right small basic icon buttons addBtn">
+      <button class="ui button"><i class="add icon"
+        (click)=addMarkerDialog(entry)></i></button>
+        <a class="ui tag label">Add Tag</a>
+    </div>
+    <span *ngFor='let currMarker of markers'>
+      <div class="markerWrapper">
+        <app-marker [marker]=currMarker (removeMarker)=markerRemoved($event)></app-marker>
+      </div>
+    </span>
+  </div>
+
+</mat-dialog-content>
+
+<div class="createOrCancelWrapper">
+  <mat-dialog-actions>
+    <div class="ui center aligned buttons">
+      <button class="ui button" (click)="cancel()">Cancel</button>
+      <div class="or"></div>
+      <button class="ui positive button" [disabled]="form.invalid"(click)="create()">Create</button>
+    </div>
+  </mat-dialog-actions>
+</div>
+</div>

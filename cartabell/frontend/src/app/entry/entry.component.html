@@ -1,0 +1,38 @@
+<div class="ui container">
+  <div class="ui raised segments">
+    <!-- entry?.title is short for entry == null ? null : entry.title
+        this is necessary as inputs are not connected when instantiating -->
+    <div class="ui segment cf">
+      <span *ngIf="entry?.keynote" class="keynoteStar" (click)=toggleKeynote()>
+        <button class="ui icon button"><i class="large orange star icon"></i></button>
+      </span>
+      <span *ngIf="!entry?.keynote" class="keynoteStar" (click)=toggleKeynote()>
+        <button class="ui icon button"><i class="small grey star outline icon"></i></button>
+      </span>
+      <div class="ui small basic icon buttons removebtn" >
+          <button class="ui icon button" (click)=removeEntry()><i class="red remove icon"></i></button>
+        </div>
+      <textarea class="title" rows="1" placeholder="Untitled" (blur)=updateTitle($event.target.value)>{{entry?.title}}</textarea>
+    </div>
+    <div class="ui segment">
+      <textarea autosize placeholder="..." (blur)=updateContents($event.target.value)>{{entry?.contents}}</textarea>
+      <div class="dateWrapper">
+        <span class="date">{{entry?.dateModified | date: 'fullDate' : '+0000' : 'en-us'}}</span>
+      </div>
+    </div>
+    <div class="ui segment cf">
+      <span *ngFor='let currMarker of entry._markers'>
+        <!-- the event removeMarker, emitted by marker.component.ts, triggers calling markerRemoved(marker)
+          in entry.component.ts-->
+        <div class="markerWrapper">
+          <app-marker [marker]=currMarker (removeMarker)=markerRemoved($event)></app-marker>
+        </div>
+      </span>
+      <div class="ui small basic icon buttons addBtn" >
+        <button class="ui button"><i class="add icon"
+          (click)=addMarkerDialog(entry)></i></button>
+      </div>
+    </div>  
+  </div>
+</div>
+<div class="ui hidden divider"></div>

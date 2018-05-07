@@ -1,0 +1,31 @@
+<div class="wrapper">
+<div id="nonfooter">
+<div class="ui inverted teal vertical segment" id="header">
+    <div class="ui page stackable grid">
+      <div class="three wide column">
+        <h2 class="ui inverted header">Cartabell'</h2>
+        <p>Proof of concept</p>
+      </div>
+      <div class="three wide right floated column">
+        <div class="ui big basic icon buttons">
+          <button class="ui button" (click)=addEntryDialog()>
+            <i class="large write icon"></i></button>
+          <button class="ui button">
+            <i class="large user icon"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <div class="ui segment">
+      <!--<router-outlet></router-outlet>-->
+      <app-entry-list #entryList></app-entry-list>
+    </div>
+
+  <div class="ui hidden divider"></div>
+</div>
+  <div class="ui inverted black vertical segment" id="footer">
+    <p>&copy; 2018 Pieter-Jan Van Damme</p>
+  </div>
+
+</div>

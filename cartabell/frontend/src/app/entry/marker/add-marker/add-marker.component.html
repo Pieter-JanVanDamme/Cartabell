@@ -1,0 +1,33 @@
+<h3 mat-dialog-title>Add Marker for {{title}}</h3>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-select placeholder="Marker Color" formControlName="markerColor">
+      <mat-option value="red">Red</mat-option>
+      <mat-option value="orange">Orange</mat-option>
+      <mat-option value="yellow">Yellow</mat-option>
+      <mat-option value="olive">Olive</mat-option>
+      <mat-option value="green">Green</mat-option>
+      <mat-option value="teal">Teal</mat-option>
+      <mat-option value="blue">Blue</mat-option>
+      <mat-option value="violet">Violet</mat-option>
+      <mat-option value="purple">Purple</mat-option>
+      <mat-option value="pink">Pink</mat-option>
+      <mat-option value="brown">Brown</mat-option>
+      <mat-option value="grey">Grey</mat-option>
+    </mat-select>
+    <mat-error>Color selection required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput placeholder="Marker Name" formControlName="markerName">
+      <mat-error>Name required (max. 35 characters)</mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+<div class="addOrCancelWrapper">
+  <mat-dialog-actions>
+    <div class="ui center aligned buttons">
+      <button class="ui button" (click)="cancel()">Cancel</button>
+      <div class="or"></div>
+      <button class="ui positive button" [disabled]="form.invalid"(click)="add()">Add</button>
+    </div>
+  </mat-dialog-actions>
+</div>

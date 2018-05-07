@@ -1,0 +1,44 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css");
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100%;
+}
+
+/*
+To position the footer at the bottom:
+
+Use a #nonfooter to wrap all contents (except footer), give it
+bottom padding equal to the height of your footer.
+Use a #footer to give the footer absolute position, 0 bottom,
+width 100%, and set height to same as above.
+*/
+
+#nonfooter {
+  padding-bottom: 45px; /* size footer */
+}
+
+#header {
+  background-color: #cff;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%; 
+  height: 45px; 
+  color: #fff;
+  background-color: #000;
+}
+
+#footer > p {
+    text-align: center;
+}

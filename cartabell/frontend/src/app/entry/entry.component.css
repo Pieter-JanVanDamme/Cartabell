@@ -1,0 +1,57 @@
+textarea {
+    width: 100%;
+    border: none;
+    border-color: white;
+}
+
+.date {
+    font-size: 0.85em;
+    position: absolute;
+    right: 15px;
+}
+
+.dateWrapper {
+    display: inline-block;
+}
+
+.removebtn {
+    float: right;
+}
+
+.title {
+    width: 85%;
+    font-size: 1.25em;
+    font-weight: bold;
+    resize: none;
+}
+
+.markerWrapper {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.addBtn {
+    float: right;
+}
+
+.keynoteStar {
+    position: relative;
+    top: -0.7em;
+}
+
+/* micro clearfix hack to prevent floating addBtn when segment contains no markers
+   credit goes to Nicolas Gallagher */
+ .cf:before,
+
+ .cf:after {
+     content: " "; /* 1 */
+     display: table; /* 2 */
+ }
+ 
+ .cf:after {
+     clear: both;
+ }
+ 
+ .cf {
+     *zoom: 1;
+ }

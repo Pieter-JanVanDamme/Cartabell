@@ -1,0 +1,11 @@
+.mat-form-field {
+    display: block;
+}
+
+.addOrCancelWrapper {
+    text-align: center;
+}
+
+.mat-dialog-actions {
+    display: inline-block;
+}

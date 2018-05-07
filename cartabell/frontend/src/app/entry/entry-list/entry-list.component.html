@@ -1,0 +1,45 @@
+<div class="ui container">
+
+  <div class="ui labeled input">
+    <input (keyup)='filterContents$.next($event.target.value)' type="text" placeholder="Filter by contents..." #filterContents>
+    <div class="ui teal label">
+      <i class="align left icon"></i>
+    </div>
+  </div>
+
+  <div class="ui labeled input">
+    <input (keyup)='filterTag$.next($event.target.value)' type="text" placeholder="Filter by marker..." #filterName>
+    <div class="ui teal label">
+        <i class="tags icon"></i>
+      </div>
+  </div>
+
+  <div class="ui labeled input">
+    <select [(ngModel)]="filterColor" (change)="filterTagColor$.next($event.target.value)"
+        class="ui search dropdown input">
+      <option *ngFor="let color of colors">
+        {{color.name}}
+      </option>
+    </select>
+    <div class="ui teal label">
+        <i class="paint brush icon"></i>
+    </div>
+  </div>
+
+    <button class="ui teal medium right floated left labeled icon button" (click)="toggleKeynotesOnly()">
+        <i class="star icon"></i>
+        Starred Only
+    </button>
+    
+</div>
+
+<div class="ui divider"></div>
+
+<div *ngFor='let currEntry of _entries | entryByContents : filterEntryByContents | entryByTagFilter : filterEntryByTag 
+    | entryByTagColorFilter : filterEntryByTagColor | keynoteFilter : onlyKeynotes | entrySort'>
+  <div class="ui container">
+    <app-entry [entry]=currEntry
+      (deleteEntry)=entryRemoved($event)
+      (updateEntry)=updateEntry($event)></app-entry>
+  </div>
+</div>

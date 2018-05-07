@@ -1,0 +1,36 @@
+@media screen and (max-width: 750px){
+    .addEntryDialogWrapper {
+        max-width: 90%;
+    }
+
+    .mat-dialog-content {
+        width: 100%;
+    }
+}
+
+.addEntryDialogWrapper {
+    width: 640px;
+}
+
+.mat-dialog-content {
+    display:inline-block;
+    width: 100%;
+    min-height: 13em;
+}
+
+.mat-form-field {
+    display: block;
+}
+
+.createOrCancelWrapper {
+    text-align: center;
+}
+
+.mat-dialog-actions {
+    display: inline-block;
+}
+
+.markerWrapper {
+    display: inline-block;
+    margin-bottom: 5px;
+}
