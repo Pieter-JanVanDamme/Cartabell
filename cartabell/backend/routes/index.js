@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
  * ENTRY
  */
 
-router.get('/API/entry/', auth, function(req, res, next) {
+router.get('/API/entry/', /*auth,*/ function(req, res, next) {
   res.send("request processed");
 });
 

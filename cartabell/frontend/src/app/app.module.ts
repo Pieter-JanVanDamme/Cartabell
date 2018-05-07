@@ -41,7 +41,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    EntryModule
   ],
   providers: [
   ],
