@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 function parseJwt(token) {
+  console.log(token);
   if (!token) {
     return null;
   }
@@ -23,6 +24,7 @@ export class AuthenticationService {
   
   constructor(private http: HttpClient) {
     // check localstorage for token, parse it using earlier defined function
+    console.log(localStorage.getItem(this._tokenKey));
     let parsedToken = parseJwt(localStorage.getItem(this._tokenKey));
     if (parsedToken) {
       // check for an expire date; this is mostly a UX issue, not a security issue

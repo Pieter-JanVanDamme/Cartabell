@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Entry } from './entry/entry.model';
 import { Marker } from './entry/marker/marker.model';
 import { EntryDataService } from './entry/entry-data.service';
 import { MatDialog, MatDialogConfig} from "@angular/material";
+import { AuthenticationService } from './user/authentication.service';
 import { AddEntryComponent } from './entry/add-entry/add-entry.component';
-import { EntryListComponent } from './entry/entry-list/entry-list.component';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,13 @@ import { EntryListComponent } from './entry/entry-list/entry-list.component';
 export class AppComponent {
   @ViewChild('entryList') child;
 
-  constructor(private _entryDataService : EntryDataService,
+  constructor( private authService : AuthenticationService,
+        private _entryDataService : EntryDataService,
         private dialog : MatDialog) {
+  }
+
+  get currentUser(): Observable<string> {
+    return this.authService.user$;
   }
 
   get entries() {

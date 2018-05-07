@@ -14,6 +14,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { EntryModule } from './entry/entry.module';
 import { EntryListComponent } from './entry/entry-list/entry-list.component';
+import { AddEntryComponent } from './entry/add-entry/add-entry.component';
+
+import { UserModule } from './user/user.module';
+import { AuthenticationService } from './user/authentication.service';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
 const appRoutes: Routes = [
@@ -30,6 +34,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    UserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     MatDialogModule,
@@ -42,10 +47,14 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    EntryModule
+    EntryModule,
   ],
   providers: [
+    AuthenticationService
   ],
+  /*entryComponents: [
+    AddEntryComponent // loaded imperatively
+  ],*/
   bootstrap: [AppComponent]
 })
 export class AppModule { }
