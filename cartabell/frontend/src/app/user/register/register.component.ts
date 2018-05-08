@@ -33,6 +33,11 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
 })
 export class RegisterComponent implements OnInit {
   public user: FormGroup;
+  public errorMsg : String;
+
+  get passwordControl(): FormControl {
+    return <FormControl>this.user.get('passwordGroup').get('password');
+  }
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -47,7 +52,7 @@ export class RegisterComponent implements OnInit {
         this.serverSideValidateUsername()],
       // passwords in group so we can add custom validator
       passwordGroup: this.fb.group({
-        password: ['', [Validators.required, passwordValidator(12)]],
+        password: ['', [Validators.required, passwordValidator(6)]],
         confirmPassword: ['', Validators.required]
       }, { validator: comparePasswords })
     });
@@ -67,5 +72,24 @@ export class RegisterComponent implements OnInit {
           })
         );
     };
+  }
+
+  onSubmit() {
+    this.authenticationService
+      .register(this.user.value.username, this.passwordControl.value)
+      .subscribe(
+        val => {
+          if (val) {
+            this.router.navigate(['/entries']);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.errorMsg = `Error ${
+            error.status
+          } while trying to register user ${this.user.value.username}: ${
+            error.error
+          }`;
+        }
+      );
   }
 }

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { SelectivePreloadStrategy } from './SelectivePreloadStrategy';
 import { AuthGuardService } from '../user/auth-guard.service';
+import { EntryListComponent } from '../entry/entry-list/entry-list.component';
 
 const appRoutes: Routes = [
   {
@@ -11,7 +12,8 @@ const appRoutes: Routes = [
     canActivate: [ AuthGuardService ],
     loadChildren: 'app/entry/entry.module#EntryModule' // <<< THIS IS IMPORTANT
   },
-  { path: '', redirectTo: 'entry', pathMatch: 'full'},
+  { path: 'entries', component: EntryListComponent },
+  { path: '', redirectTo: 'entries', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
 
@@ -20,6 +22,9 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(appRoutes, { preloadingStrategy: SelectivePreloadStrategy })
+  ],
+  providers: [
+    SelectivePreloadStrategy
   ],
   declarations: [],
   exports: [

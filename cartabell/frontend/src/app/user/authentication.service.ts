@@ -96,7 +96,7 @@ export class AuthenticationService {
   
   logout() {
     if (this._user$.getValue()) {
-      localStorage.removeItem('currentUser'); // remove the token
+      localStorage.removeItem(this._tokenKey); // remove the token
       /* change value on next job queue tick to prevent errors;
       otherwise we're updating values while processing changes in the change detection chain */
       setTimeout(() => this._user$.next(null)); 

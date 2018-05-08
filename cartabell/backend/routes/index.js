@@ -18,18 +18,18 @@ router.get('/', function(req, res, next) {
  * ENTRY
  */
 
-router.get('/API/entry/', /*auth,*/ function(req, res, next) {
+router.get('/API/entry/', auth, function(req, res, next) {
   res.send("request processed");
 });
 
-router.get('/API/entries/', /*auth,*/ function(req, res, next) {
+router.get('/API/entries/', auth, function(req, res, next) {
   Entry.find(function(err, entries) {
     if (err) { return next(err); } // error handling
     res.json(entries); // conversion to JSON
   });
 });
 
-router.post('/API/entries/', /*auth,*/ function (req, res, next) {
+router.post('/API/entries/', auth, function (req, res, next) {
   let entry = new Entry(req.body); // pass request body (key:value pairs) to Entry constructor
   entry.save(function(err, entr) { // call save on object, with callback
     if (err){ return next(err); }
@@ -37,7 +37,7 @@ router.post('/API/entries/', /*auth,*/ function (req, res, next) {
   });
 });
   
-  router.param('entry', /*auth,*/ function(req, res, next, id) {
+  router.param('entry', auth, function(req, res, next, id) {
     let query = Entry.findById(id);
     query.exec(function (err, entry){
       if (err) { return next(err); }

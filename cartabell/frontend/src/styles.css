@@ -42,3 +42,8 @@ width 100%, and set height to same as above.
 #footer > p {
     text-align: center;
 }
+
+.access {
+  max-width: 400px;
+  margin: 0 auto;
+}

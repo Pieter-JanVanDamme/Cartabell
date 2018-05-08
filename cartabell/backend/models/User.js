@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+let crypto = require('crypto');
+let jwt = require('jsonwebtoken');
 
 let UserSchema = new mongoose.Schema({
 	username: { type: String, lowercase: true, 

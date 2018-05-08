@@ -19,9 +19,12 @@
             </a>
           </button>
           <button *ngIf='(currentUser | async) else ng-hide' class="ui button" (click)=addEntryDialog() title="Add new Scribble">
-              <i class="large black write icon"></i></button>
+            <i class="large black write icon"></i></button>
           <button *ngIf='(currentUser | async) else ng-hide' class="ui button" title="Log out">
-            <i class="large black power off icon"></i></button>
+            <a class="item" routerLinkActive='active' routerLink="/logout">
+              <i class="large black power off icon"></i>
+            </a>
+          </button>
         </div>
       </div>
     </div>

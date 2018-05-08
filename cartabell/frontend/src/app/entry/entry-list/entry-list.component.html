@@ -1,4 +1,13 @@
-<div class="ui container">
+<div  *ngIf="errorMessage else ng-hide" class="ui negative message">
+    <div class="header">
+      An error occurred.
+    </div>
+    <div>
+      {{errorMessage}}
+    </div>
+  </div>
+
+<div *ngIf='(currentUser | async) else ng-hide' class="ui container">
 
   <div class="ui labeled input">
     <input (keyup)='filterContents$.next($event.target.value)' type="text" placeholder="Filter by contents..." #filterContents>
@@ -33,7 +42,7 @@
     
 </div>
 
-<div class="ui divider"></div>
+<div *ngIf='(currentUser | async) else ng-hide' class="ui divider"></div>
 
 <div *ngFor='let currEntry of _entries | entryByContents : filterEntryByContents | entryByTagFilter : filterEntryByTag 
     | entryByTagColorFilter : filterEntryByTagColor | keynoteFilter : onlyKeynotes | entrySort'>

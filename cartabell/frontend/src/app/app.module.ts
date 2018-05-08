@@ -20,12 +20,6 @@ import { UserModule } from './user/user.module';
 import { AuthenticationService } from './user/authentication.service';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
-const appRoutes: Routes = [
-  { path: 'entries', component: EntryListComponent },
-  { path: '', redirectTo: 'entries', pathMatch: 'full'}, // empty
-  { path: '**', component: PageNotFoundComponent} // catch-all
-];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +30,6 @@ const appRoutes: Routes = [
     BrowserModule,
     UserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
     MatDialogModule,
     MatFormFieldModule,
     MatOptionModule,
@@ -52,9 +45,9 @@ const appRoutes: Routes = [
   providers: [
     AuthenticationService
   ],
-  /*entryComponents: [
+  entryComponents: [
     AddEntryComponent // loaded imperatively
-  ],*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

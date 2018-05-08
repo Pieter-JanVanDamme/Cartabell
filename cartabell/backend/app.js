@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 let passport = require('passport');
+
 mongoose.connect('mongodb://localhost/entrydb')
   .then(() => { console.log('MongoDB connected...')})
   .catch(err => console.log(err));
@@ -30,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/API/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

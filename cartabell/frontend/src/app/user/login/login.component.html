@@ -1,3 +1,40 @@
-<p>
-  login works!
-</p>
+<div class="access">
+
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui hidden divider"></div>
+            <h2 class="ui horizontal header divider">Log In</h2>
+            <div class="ui hidden divider"></div>
+  
+          <form [formGroup]='user' (ngSubmit)='onSubmit()' class="ui large form">
+            <div class="ui stacked segment">
+  
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="user icon"></i>
+                  <input type="text" name="username" formControlName="username" placeholder="Username">
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="lock icon"></i>
+                  <input type="password" name="password" formControlName="password" placeholder="Password">
+                </div>
+              </div>
+
+              <div class="ui divider"></div>
+              <button class="ui fluid large orange submit button" type="submit" [disabled]='!user.valid'>Log In</button>
+            </div>
+      
+            <div class="ui error message"></div>
+      
+          </form>
+      
+          <div class="ui message">
+            Not yet a member? <a class="item" routerLink="/register">Register</a>
+          </div>
+          <div class="ui hidden divider"></div>
+        </div>
+      </div>
+  </div>
