@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 import { SelectivePreloadStrategy } from './SelectivePreloadStrategy';
 import { AuthGuardService } from '../user/auth-guard.service';
 import { EntryListComponent } from '../entry/entry-list/entry-list.component';
+import { WelcomeComponent } from '../welcome/welcome.component';
 
 const appRoutes: Routes = [
   {
@@ -12,8 +13,9 @@ const appRoutes: Routes = [
     canActivate: [ AuthGuardService ],
     loadChildren: 'app/entry/entry.module#EntryModule' // <<< THIS IS IMPORTANT
   },
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'entries', component: EntryListComponent },
-  { path: '', redirectTo: 'entries', pathMatch: 'full'},
+  { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
 

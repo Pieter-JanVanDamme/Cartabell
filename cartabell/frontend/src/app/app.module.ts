@@ -19,12 +19,14 @@ import { AddEntryComponent } from './entry/add-entry/add-entry.component';
 import { UserModule } from './user/user.module';
 import { AuthenticationService } from './user/authentication.service';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Autosize,
     PageNotFoundComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,

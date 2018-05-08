@@ -20,9 +20,11 @@ import { EntryDataService } from './entry-data.service';
 import { httpInterceptorProviders } from '../http-interceptors/index';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { WelcomeComponent } from '../welcome/welcome.component';
 
 const routes = [
-  { path: 'entries', component: EntryListComponent }
+  { path: 'entries', component: EntryListComponent },
+  { path: 'welcome', component: WelcomeComponent }
 ];
 
 @NgModule({
