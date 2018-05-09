@@ -23,7 +23,7 @@ router.get('/API/entry/', auth, function(req, res, next) {
 });
 
 router.get('/API/entries/', auth, function(req, res, next) {
-  Entry.find(function(err, entries) {
+  Entry.find( {author : req.user.username}, function(err, entries) {
     if (err) { return next(err); } // error handling
     res.json(entries); // conversion to JSON
   });
@@ -37,7 +37,8 @@ router.post('/API/entries/', auth, function (req, res, next) {
   });
 });
   
-  router.param('entry', auth, function(req, res, next, id) {
+  // no auth! This is an assisting method
+  router.param('entry', function(req, res, next, id) {
     let query = Entry.findById(id);
     query.exec(function (err, entry){
       if (err) { return next(err); }
@@ -48,26 +49,30 @@ router.post('/API/entries/', auth, function (req, res, next) {
   });   
   
   // uses router.param('entry', function()), see above
-  router.get('/API/entry/:entry', auth, function(req, res) {
+  // no auth!
+  router.get('/API/entry/:entry', function(req, res) {
     res.json(req.entry);
   });  
 
   // uses router.param('entry', function()), see above
-  router.delete('/API/entry/:entry', /*auth,*/ function(req, res, next) {
+  router.delete('/API/entry/:entry', auth, function(req, res, next) {
     req.entry.remove(function(err) {
       if (err) { return next(err); }   
       res.json(req.entry);
     });
   })
 
-  router.post('/API/entry/:entry', /*auth,*/ function(req, res, next) {
+  router.post('/API/entry/:entry', auth, function(req, res, next) {
     // req.entry = entry saved in the db
     // req.body = post-request with changed data
+    console.log(req.entry.title);
     req.entry.title = req.body.title;
     req.entry.contents = req.body.contents;
     req.entry.keynote = req.body.keynote;
     // dateCreated unchanged
     req.entry.markers = req.body.markers;
+    req.entry.author = req.body.author;
+    req.entry.collaborators = req.body.collaborators;
     req.entry.dateModified = req.body.dateModified;
     req.entry.save(function(err){
       if(err) { res.send(err); }

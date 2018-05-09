@@ -3,9 +3,11 @@
 <div class="ui inverted teal vertical segment" id="header">
     <div class="ui page stackable grid">
       <div class="three wide column">
-          <img src="../assets/CartabellLogo.png" alt="Cartabell Logo" width=175px>
+          <a class="item" routerLinkActive='active' routerLink="/welcome">
+            <img src="../assets/CartabellLogo.png" alt="Cartabell Logo" width=175px>
+          </a>
       </div>
-      <div class="three wide right floated column">
+      <div class="four wide right floated column">
         <div class="ui big basic icon buttons">
           <button *ngIf='!(currentUser | async) else ng-hide'class="ui button" title="Login">
             <a class="item" routerLinkActive='active' routerLink="/login">
@@ -24,13 +26,16 @@
               <i class="large black power off icon"></i>
             </a>
           </button>
+          <div *ngIf='(currentUser | async) else ng-hide' class="ui orange left pointing label userlabel">
+              Hello, {{_username}}!
+          </div>
         </div>
       </div>
     </div>
   </div>
   
     <div class="ui segment">
-      <router-outlet></router-outlet>
+      <router-outlet (activate)="routedComponent = $event"></router-outlet>
     </div>
 
   <div class="ui hidden divider"></div>

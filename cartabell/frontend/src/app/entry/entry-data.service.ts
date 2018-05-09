@@ -4,19 +4,25 @@ import { Marker } from './marker/marker.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { AuthenticationService } from '../user/authentication.service';
 
 
 @Injectable()
 export class EntryDataService {
   private _entries = new Array<Entry>();
   private readonly _appUrl = '/API'; 
+  private _username : string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private authService : AuthenticationService,) {
+      this.authService.user$.subscribe(
+        (val) => this._username = val
+      );
   }
 
   get entries(): Observable<Entry[]> { // return type from .get method
     return this.http
-      .get(this._appUrl+'/entries/') // /API/entries, returns json array of recipes Observable<Object>
+      .get(this._appUrl+'/entries/', { params : {author : this._username}}) // /API/entries, returns json array of recipes Observable<Object>
       .pipe(
         // note: two DIFFERENT map functions! One on Observable, the other on Array
         map((list: any[]): Entry[] => // RxJS.map converts Observable<T> to Observable<U>
@@ -31,7 +37,8 @@ export class EntryDataService {
       .pipe(
         map( // Rx.map, post request returns an object, not a list 
           (item: any): Entry =>
-            new Entry(item.title, item.contents, item.keynote, item.markers, item._id)
+            new Entry(item.title, item.contents, item.keynote, item.markers,
+              item.author, item.collaborators, item._id, item.dateModified)
         )
       );
   }
@@ -57,7 +64,9 @@ export class EntryDataService {
           "contents" : entr.contents,
           "keynote" : entr.keynote,
           "dateModified" : entr.dateModified,
-          "markers" : entr.markers
+          "markers" : entr.markers,
+          "author": entr.author,
+          "collaborators": entr.collaborators
       })
       .pipe(map(Entry.fromJSON));
   }

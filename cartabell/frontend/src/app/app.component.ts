@@ -6,6 +6,7 @@ import { EntryDataService } from './entry/entry-data.service';
 import { MatDialog, MatDialogConfig} from "@angular/material";
 import { AuthenticationService } from './user/authentication.service';
 import { AddEntryComponent } from './entry/add-entry/add-entry.component';
+import { EntryListComponent } from './entry/entry-list/entry-list.component';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,16 @@ import { AddEntryComponent } from './entry/add-entry/add-entry.component';
   providers: [EntryDataService]
 })
 export class AppComponent {
-  @ViewChild('entryList') child;
+  private routedComponent;
+
+  _username : string;
 
   constructor( private authService : AuthenticationService,
         private _entryDataService : EntryDataService,
         private dialog : MatDialog) {
+        this.currentUser.subscribe(
+          (val) => this._username = val
+        );
   }
 
   get currentUser(): Observable<string> {
@@ -31,7 +37,7 @@ export class AppComponent {
 
   newEntryAdded(entry) {
     this._entryDataService.addNewEntry(entry)
-      .subscribe(item => this.child.entries.push(item));
+      .subscribe(item => this.routedComponent.entries.push(item));
   }
 
   addEntryDialog() {
@@ -40,12 +46,15 @@ export class AppComponent {
     dialogConfig.disableClose = false; // user can close dialog by clicking outside of it
     dialogConfig.autoFocus = true; // autofocus on first form field
     //dialogConfig.direction = "rtl";
-    dialogConfig.data = { };
+    dialogConfig.data = {
+      username : this._username
+    };
 
     const dialogRef = this.dialog.open(AddEntryComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => this.newEntryAdded(new Entry(data["entryTitle"], data["entryContents"], data["entryIsKeynote"], data["markers"]))
+      data => this.newEntryAdded(new Entry(data["entryTitle"], data["entryContents"],
+      data["entryIsKeynote"], data["markers"], data["author"]))
     );
   }
 }

@@ -19,6 +19,7 @@ export class AddEntryComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data,
     private dialog : MatDialog) {
       this.form = fb.group({
+        author: [data["username"], Validators.required],
         entryTitle : ["", [Validators.required, Validators.maxLength(160)]],
         entryContents : ["", Validators.required],
         entryIsKeynote : [false, Validators.required],

@@ -8,19 +8,32 @@ export class Entry {
     private _dateModified : Date;
     private _contents : string;
     private _markers = new Array<Marker>();
+    private _author : string;
+    private _collaborators : string[];
 
     constructor(title : string, contents : string, keynote : boolean = false, markers = null,
-        id : string = undefined, dateModified = new Date()){
+            author : string = "", collaborators : string[] = [], id : string = undefined,
+            dateModified = new Date()){
         this._title = title;
         this._contents = contents;
         this._keynote = keynote;
         this._markers = markers;
+        this._author = author.toLowerCase();
+        this._collaborators = collaborators;
         this._id = id;
         this._dateModified = dateModified;
     }
 
     get id() : string {
         return this._id;
+    }
+
+    get author() : string {
+        return this._author;
+    }
+
+    get collaborators() : string[] {
+        return this._collaborators;
     }
 
     get title() : string {
@@ -81,6 +94,8 @@ export class Entry {
           keynote: this._keynote,
           dateCreated: this._dateCreated,
           markers: this._markers.map(mrkr => mrkr.toJSON()),
+          author: this._author,
+          collaborators: this._collaborators,
           _id: this._id, // !!!
           dateModified: this._dateModified
         };
@@ -92,6 +107,8 @@ export class Entry {
           json.contents,
           json.keynote,
           json.markers.map(Marker.fromJSON),
+          json.author,
+          json.collaborators,
           json._id,
           json.dateModified
         );

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Entry } from '../entry.model';
 import { EntryDataService } from '../entry-data.service';
 import { distinctUntilChanged, debounceTime, map, filter, debounce } from 'rxjs/operators';
+import { AuthenticationService } from '../../user/authentication.service';
 
 @Component({
   selector: 'app-entry-list',
@@ -13,6 +15,7 @@ import { distinctUntilChanged, debounceTime, map, filter, debounce } from 'rxjs/
 export class EntryListComponent implements OnInit {
 
   private _entries : Entry[];
+  //private _username : string;
 
   public filterEntryByTag : string;
   public filterEntryByTagColor : string;
@@ -41,7 +44,8 @@ export class EntryListComponent implements OnInit {
     {name: "Grey", value: "grey"}
   ]
 
-  constructor(private _entryDataService : EntryDataService) {
+  constructor(private _entryDataService : EntryDataService,
+        private _authService : AuthenticationService) {
     this.filterTag$.pipe(
       distinctUntilChanged(),
       debounceTime(500),
@@ -69,10 +73,20 @@ export class EntryListComponent implements OnInit {
       (error : HttpErrorResponse) => {
         this.errorMessage = `Error ${error.status} while trying to retrieve entries: ${error.error}`;
       });
+      
+      /*this.currentUser.subscribe(
+        (val) => this._username = val,
+        (err) => this.errorMessage = err, 
+        () => this.errorMessage = "Unknown user, please contact support."
+      );*/
   }
 
   get entries() {
     return this._entries;
+  }
+
+  get currentUser(): Observable<string> {
+    return this._authService.user$;
   }
 
   entryRemoved(entry : Entry){

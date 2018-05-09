@@ -33,7 +33,7 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
 })
 export class RegisterComponent implements OnInit {
   public user: FormGroup;
-  public errorMsg : String;
+  public errorMsg : string;
 
   get passwordControl(): FormControl {
     return <FormControl>this.user.get('passwordGroup').get('password');

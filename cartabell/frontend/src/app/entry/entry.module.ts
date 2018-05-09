@@ -56,6 +56,9 @@ const routes = [
   providers: [
     EntryDataService,
     httpInterceptorProviders
+  ],
+  entryComponents: [
+    AddMarkerComponent
   ]
 })
 export class EntryModule { }
