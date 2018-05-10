@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
 import { basehttpInterceptorProviders } from '../http-interceptors';
+import { UserDataService } from './user-data.service';
 
 const routes = [
   { path: 'login', component: LoginComponent },
@@ -24,8 +25,16 @@ const routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginComponent, LogoutComponent, RegisterComponent],
-  providers: [basehttpInterceptorProviders, AuthenticationService, AuthGuardService]
-
+  declarations: [
+    LoginComponent,
+    LogoutComponent,
+    RegisterComponent
+  ],
+  providers: [
+    basehttpInterceptorProviders,
+    AuthenticationService,
+    AuthGuardService,
+    UserDataService
+  ]
 })
 export class UserModule { }

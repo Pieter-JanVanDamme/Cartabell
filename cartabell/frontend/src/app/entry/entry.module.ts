@@ -21,6 +21,7 @@ import { httpInterceptorProviders } from '../http-interceptors/index';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from '../welcome/welcome.component';
+import { UserDataService } from '../user/user-data.service';
 
 const routes = [
   { path: 'entries', component: EntryListComponent },
@@ -55,6 +56,7 @@ const routes = [
   ],
   providers: [
     EntryDataService,
+    UserDataService,
     httpInterceptorProviders
   ],
   entryComponents: [

@@ -4,10 +4,20 @@ let mongoose = require('mongoose');
 let User = mongoose.model('User');
 let passport = require('passport');
 
+let jwt = require('express-jwt');
+let auth = jwt({secret: process.env.SCRIBBLE_BACKEND_SECRET});
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
+router.get('/names', auth, function(req, res, next){
+  User.find(function(err, users){
+    if(err) { return next(err); }
+    res.json(users.map(user => user.username));
+  });
+})
 
 router.post('/register', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
