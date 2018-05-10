@@ -81,6 +81,13 @@ export class EntryListComponent implements OnInit {
       (error : HttpErrorResponse) => {
         this.errorMessage = `Error ${error.status} while trying to retrieve scribbles: ${error.error}`;
       });
+      /*if (typeof localStorage["welcomeScribble"] !== "undefined"
+          && localStorage["welcomeScribble"] !== "undefined"){
+        let entry = JSON.parse(localStorage.getItem('welcomeScribble'));
+        this._entries = [Entry.fromJSON(entry)]
+        console.log(entry);
+        localStorage.removeItem('welcomeScribble');
+      }*/
       this._userDataService.usernames.subscribe(
         names => this._usernames = names,
         (err : HttpErrorResponse) => {

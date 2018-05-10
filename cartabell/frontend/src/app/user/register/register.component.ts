@@ -13,6 +13,8 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { EntryDataService } from '../../entry/entry-data.service';
+import { Entry } from '../../entry/entry.model';
+import { Marker } from '../../entry/marker/marker.model';
 
 function passwordValidator(length: number): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
@@ -82,7 +84,28 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         val => {
           if (val) {
-            this.entryDataService.welcomeNewUser(this.user.value.username);
+            let name = this.user.value.username;
+            this.entryDataService.addNewEntry(new Entry(
+              "Welcome, " + name + "!",
+              "Welcome to Cartabell', " + name + "!\n(You can make this text area bigger by dragging from the"
+              + " handle just above my name, in the lower right.)\n\nCartabell makes it easy to make quick Scribbles, put some markers"
+              + " on them so you can find them later, and share them with others.\n\nTry creating a new Scribble"
+              + " with the pencil icon at the top right.\n\nYou can add a marker with a colour and name of your"
+              + " choosing by clicking the plus icon at the bottom right of every Scribble.\n\nImportant Scribbles"
+              + " can be \"starred\" using the star icon at the top left. These will always appear on the top of"
+              + " the page (most recently modified ones come first).\n\nEven if you've got a lot of them, it's easy"
+              + " to find Scribbles using the filters near the top of the page. You can search for specific words"
+              + " in the title or contents of your Scribbles, but you can also filter by your markers' names and"
+              + " colors.\n\nScribbles can be also shared by clicking the arrow icon at the top right of every Scribble"
+              + " and choosing someone to share with. They will find your Scribble when they log on.\n\nIf you delete"
+              + " a Scribble someone shared with you, it will only remove it from *your* Scribbles. So don't worry"
+              + " about accidently deleting someone else's Scribbles!\n\nHappy scribbling!\n\n\n\nFun fact: our name"
+              + " comes from the Italian \"Scartabello\", which means booklet. Bet you didn't know that!",
+              true,
+              [new Marker("red", "#Welcome to " + name + "!")],
+              "Pieter-Jan",
+              [name.toLowerCase()]
+            )).subscribe(val => val); // need to subscribe, observables are lazy
             this.router.navigate(['/entries']);
           }
         },

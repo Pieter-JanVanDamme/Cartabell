@@ -101,7 +101,7 @@ export class Entry {
           contents: this._contents,
           keynote: this._keynote,
           dateCreated: this._dateCreated,
-          markers: this._markers.map(mrkr => mrkr.toJSON()),
+          markers: this._markers.map(marker => marker.toJSON()),
           author: this._author,
           collaborators: this._collaborators,
           _id: this._id, // !!!

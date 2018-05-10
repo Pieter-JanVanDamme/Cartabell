@@ -21,10 +21,10 @@ export class Marker {
 
     toJSON() {
         return {
-          _id : this._id,
-          color : this._color,
-          name : this._name
-        };
+            _id : this._id,
+            color : this._color,
+            name : this._name
+        }
     }   
     
     static fromJSON(json: any): Marker {
