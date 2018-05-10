@@ -10,24 +10,7 @@ export class UserDataService {
   private _usernames = new Array<string>();
 
   constructor(private http: HttpClient /*,
-    private authService : AuthenticationService*/) {
-      /*this.getUsernamesFromServer().subscribe(val => {
-        // convert Object to Array<string>
-        this._usernames = new Array<string>();
-        let name = "";
-        for(let i = 0; i>=0; i++){
-          name = val[i];
-          if(name == null)
-            break;
-          this._usernames.push(name);
-        }
-      });*/
-    }
-
-  private getUsernamesFromServer() {
-    return this.http
-      .get(`${this._appUrl}/names`); 
-  } 
+    private authService : AuthenticationService*/) {   }
 
   get usernames(): Observable<string[]> {
     return this.http

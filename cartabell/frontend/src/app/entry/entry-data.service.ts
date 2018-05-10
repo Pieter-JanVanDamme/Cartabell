@@ -21,7 +21,7 @@ export class EntryDataService {
 
   get entries(): Observable<Entry[]> { // return type from .get method
     return this.http
-      .get(this._appUrl+'/entries/', { params : {author : this._username}}) // /API/entries, returns json array of recipes Observable<Object>
+      .get(this._appUrl+'/entries/', { params : {user : this._username}}) // /API/entries, returns json array of recipes Observable<Object>
       .pipe(
         // note: two DIFFERENT map functions! One on Observable, the other on Array
         map((list: any[]): Entry[] => // RxJS.map converts Observable<T> to Observable<U>

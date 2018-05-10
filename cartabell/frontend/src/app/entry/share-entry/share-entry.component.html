@@ -1,0 +1,18 @@
+<h3 mat-dialog-title>Share Scribble</h3>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-select placeholder="User" formControlName="shareWith">
+      <mat-option *ngFor="let user of usernames" [value]="user">{{user}}</mat-option>
+    </mat-select>
+    <mat-error>User selection required</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<div class="shareOrCancelWrapper">
+  <mat-dialog-actions>
+    <div class="ui center aligned buttons">
+      <button class="ui button" (click)="cancel()">Cancel</button>
+      <div class="or"></div>
+      <button class="ui positive button" [disabled]="form.invalid"(click)="share()">Share</button>
+    </div>
+  </mat-dialog-actions>
+</div>

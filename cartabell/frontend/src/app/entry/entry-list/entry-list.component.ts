@@ -85,12 +85,6 @@ export class EntryListComponent implements OnInit {
           this.errorMessage = `Error ${err.status} while trying to retrieve usernames: ${err.error}`;
         }
       );
-      
-      /*this.currentUser.subscribe(
-        (val) => this._username = val,
-        (err) => this.errorMessage = err, 
-        () => this.errorMessage = "Unknown user, please contact support."
-      );*/
   }
 
   get entries() {

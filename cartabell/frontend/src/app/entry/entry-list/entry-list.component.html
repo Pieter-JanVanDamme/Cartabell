@@ -47,7 +47,7 @@
 <div *ngFor='let currEntry of _entries | entryByContents : filterEntryByContents | entryByTagFilter : filterEntryByTag 
     | entryByTagColorFilter : filterEntryByTagColor | keynoteFilter : onlyKeynotes | entrySort'>
   <div class="ui container">
-    <app-entry [entry]=currEntry
+    <app-entry [entry]=currEntry [user]=_username [usernames]=_usernames
       (deleteEntry)=entryRemoved($event)
       (updateEntry)=updateEntry($event)></app-entry>
   </div>

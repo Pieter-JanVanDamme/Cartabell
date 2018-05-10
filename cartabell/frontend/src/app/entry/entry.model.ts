@@ -36,6 +36,14 @@ export class Entry {
         return this._collaborators;
     }
 
+    addToCollaborators(user : string){
+        this._collaborators.push(user);
+    }
+
+    removeFromCollaborators(user : string){
+        this._collaborators.splice(this._collaborators.indexOf(user), 1);
+    }
+
     get title() : string {
         return this._title;
     }

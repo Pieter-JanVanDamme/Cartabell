@@ -23,9 +23,16 @@ router.get('/API/entry/', auth, function(req, res, next) {
 });
 
 router.get('/API/entries/', auth, function(req, res, next) {
-  Entry.find( {author : req.user.username}, function(err, entries) {
-    if (err) { return next(err); } // error handling
-    res.json(entries); // conversion to JSON
+  Entry.find(
+    {
+      $or : [
+        {author : req.user.username},
+        {collaborators : req.user.username}
+      ]
+    },
+    function(err, entries) {
+      if (err) { return next(err); } // error handling
+      res.json(entries); // conversion to JSON
   });
 });
 

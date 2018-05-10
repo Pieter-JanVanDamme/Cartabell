@@ -10,18 +10,19 @@ import { EntryComponent } from './entry.component';
 import { AddEntryComponent } from './add-entry/add-entry.component';
 import { MarkerComponent } from './marker/marker.component';
 import { AddMarkerComponent } from './marker/add-marker/add-marker.component';
+import { ShareEntryComponent } from './share-entry/share-entry.component';
 import { EntryByContentsPipe } from './entry-list/pipes/entry-by-contents.pipe';
 import { EntryByTagColorFilterPipe } from './entry-list/pipes/entry-by-tag-color-filter.pipe';
 import { EntryByTagFilterPipe } from './entry-list/pipes/entry-by-tag-filter.pipe';
 import { KeynoteFilterPipe } from './entry-list/pipes/keynote-filter.pipe';
 import { EntrySortPipe } from './entry-list/pipes/entry-sort.pipe';
 import { EntryDataService } from './entry-data.service';
+import { UserDataService } from '../user/user-data.service';
 
 import { httpInterceptorProviders } from '../http-interceptors/index';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from '../welcome/welcome.component';
-import { UserDataService } from '../user/user-data.service';
 
 const routes = [
   { path: 'entries', component: EntryListComponent },
@@ -52,7 +53,8 @@ const routes = [
     EntryByTagColorFilterPipe,
     EntryByTagFilterPipe,
     KeynoteFilterPipe,
-    EntrySortPipe
+    EntrySortPipe,
+    ShareEntryComponent
   ],
   providers: [
     EntryDataService,
@@ -60,7 +62,8 @@ const routes = [
     httpInterceptorProviders
   ],
   entryComponents: [
-    AddMarkerComponent
+    AddMarkerComponent,
+    ShareEntryComponent
   ]
 })
 export class EntryModule { }
