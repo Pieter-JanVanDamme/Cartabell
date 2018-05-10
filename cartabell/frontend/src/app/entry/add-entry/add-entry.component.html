@@ -18,9 +18,8 @@
 
   <div class="ui segment cf">
     <div class="ui float right small basic icon buttons addBtn">
-      <button class="ui button"><i class="add icon"
-        (click)=addMarkerDialog(entry)></i></button>
-        <a class="ui tag label">Add Tag</a>
+      <button class="ui button" (click)=addMarkerDialog(entry)><i class="add icon"></i></button>
+        <a class="ui tag label">Add Marker</a>
     </div>
     <span *ngFor='let currMarker of markers'>
       <div class="markerWrapper">
