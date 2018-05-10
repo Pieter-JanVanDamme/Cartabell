@@ -7,25 +7,43 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class UserDataService {
   private readonly _appUrl = '/API/users'; 
-  private _usernames : string[];
+  private _usernames = new Array<string>();
 
   constructor(private http: HttpClient /*,
     private authService : AuthenticationService*/) {
-      this.getUserNames().subscribe(val => {
-        this._usernames = [];
+      /*this.getUsernamesFromServer().subscribe(val => {
+        // convert Object to Array<string>
+        this._usernames = new Array<string>();
         let name = "";
-        for(let i = 0; i>0; i++){
+        for(let i = 0; i>=0; i++){
           name = val[i];
           if(name == null)
             break;
           this._usernames.push(name);
         }
-      });
+      });*/
     }
 
-  getUserNames() {
+  private getUsernamesFromServer() {
     return this.http
       .get(`${this._appUrl}/names`); 
   } 
+
+  get usernames(): Observable<string[]> {
+    return this.http
+      .get(`${this._appUrl}/names`)
+      .pipe(map(val => {
+        // map Observable<Object> to Observable<string[]>
+        let usernames = new Array<string>();
+        let name = "";
+        for(let i = 0; i>=0; i++){
+          name = val[i];
+          if(name == null)
+            break;
+          usernames.push(name);
+        }
+        return usernames;
+      }));
+  }
 
 }

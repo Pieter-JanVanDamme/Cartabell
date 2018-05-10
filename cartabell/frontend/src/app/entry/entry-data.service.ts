@@ -9,10 +9,8 @@ import { AuthenticationService } from '../user/authentication.service';
 
 @Injectable()
 export class EntryDataService {
-  private _entries = new Array<Entry>();
   private readonly _appUrl = '/API'; 
   private _username : string;
-  private usernames : Observable<any>
 
   constructor(private http: HttpClient,
     private authService : AuthenticationService) {

@@ -34,7 +34,7 @@ const routes = [
     basehttpInterceptorProviders,
     AuthenticationService,
     AuthGuardService,
-    UserDataService
+    { provide: 'userDataService', useClass: UserDataService}
   ]
 })
 export class UserModule { }

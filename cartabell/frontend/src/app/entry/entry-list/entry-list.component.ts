@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Entry } from '../entry.model';
 import { EntryDataService } from '../entry-data.service';
+import { UserDataService } from '../../user/user-data.service';
 import { distinctUntilChanged, debounceTime, map, filter, debounce } from 'rxjs/operators';
 import { AuthenticationService } from '../../user/authentication.service';
 
@@ -15,7 +16,8 @@ import { AuthenticationService } from '../../user/authentication.service';
 export class EntryListComponent implements OnInit {
 
   private _entries : Entry[];
-  //private _username : string;
+  private _username : string;
+  private _usernames : string[];
 
   public filterEntryByTag : string;
   public filterEntryByTagColor : string;
@@ -45,7 +47,11 @@ export class EntryListComponent implements OnInit {
   ]
 
   constructor(private _entryDataService : EntryDataService,
+        @Inject('userDataService') private _userDataService,
         private _authService : AuthenticationService) {
+    this.currentUser.subscribe(
+      (val) => this._username = val
+    );
     this.filterTag$.pipe(
       distinctUntilChanged(),
       debounceTime(500),
@@ -71,8 +77,14 @@ export class EntryListComponent implements OnInit {
     this._entryDataService.entries.subscribe( // subscribe in code…
       items => this._entries = items, //… unwrap the result in callback
       (error : HttpErrorResponse) => {
-        this.errorMessage = `Error ${error.status} while trying to retrieve entries: ${error.error}`;
+        this.errorMessage = `Error ${error.status} while trying to retrieve scribbles: ${error.error}`;
       });
+      this._userDataService.usernames.subscribe(
+        names => this._usernames = names,
+        (err : HttpErrorResponse) => {
+          this.errorMessage = `Error ${err.status} while trying to retrieve usernames: ${err.error}`;
+        }
+      );
       
       /*this.currentUser.subscribe(
         (val) => this._username = val,
