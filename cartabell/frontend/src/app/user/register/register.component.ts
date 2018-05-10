@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { EntryDataService } from '../../entry/entry-data.service';
 
 function passwordValidator(length: number): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
@@ -42,7 +43,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private entryDataService : EntryDataService
   ) {}
 
   ngOnInit() {
@@ -80,6 +82,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         val => {
           if (val) {
+            this.entryDataService.welcomeNewUser(this.user.value.username);
             this.router.navigate(['/entries']);
           }
         },

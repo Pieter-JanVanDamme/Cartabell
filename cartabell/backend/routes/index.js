@@ -26,7 +26,9 @@ router.get('/API/entries/', auth, function(req, res, next) {
   Entry.find(
     {
       $or : [
+        // matches if user is the author...
         {author : req.user.username},
+        // ...or if collaborators-array contains the username
         {collaborators : req.user.username}
       ]
     },

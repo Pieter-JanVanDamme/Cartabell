@@ -7,6 +7,7 @@ import { EntryDataService } from '../entry-data.service';
 import { UserDataService } from '../../user/user-data.service';
 import { distinctUntilChanged, debounceTime, map, filter, debounce } from 'rxjs/operators';
 import { AuthenticationService } from '../../user/authentication.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-entry-list',
@@ -48,7 +49,8 @@ export class EntryListComponent implements OnInit {
 
   constructor(private _entryDataService : EntryDataService,
         @Inject('userDataService') private _userDataService,
-        private _authService : AuthenticationService) {
+        private _authService : AuthenticationService,
+        private route : ActivatedRoute) {
     this.currentUser.subscribe(
       (val) => this._username = val
     );
@@ -109,7 +111,12 @@ export class EntryListComponent implements OnInit {
   updateEntry(entry : Entry){
     this._entries.splice(this._entries.indexOf(entry), 1);
     this._entryDataService.updateEntry(entry).subscribe(
-      item => this._entries.push(item),
+      item => {
+        // don't add entry to our list if we're no longer a collaborator
+        if(item.author == this._username ||
+            item.collaborators.indexOf(this._username) != -1)
+          this._entries.push(item)
+      },
       (error: HttpErrorResponse) => {
         this.errorMessage = `Error ${error.status} while updating ${
           entry.title}: ${error.error}`;

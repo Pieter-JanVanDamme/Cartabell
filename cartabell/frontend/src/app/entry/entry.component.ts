@@ -57,11 +57,12 @@ export class EntryComponent implements OnInit {
   }
 
   removeEntry(){
-    /*
-     * TODO
-     * Add conditional; if user != entry.author, only remove user from entry.collaborators
-     */
-    this.deleteEntry.emit(this.entry);
+    if(this.user != this.entry.author){
+      this.entry.removeFromCollaborators(this.user);
+      this.updateEntry.emit(this.entry);
+    }
+    else
+      this.deleteEntry.emit(this.entry);
   }
 
   updateTitle(val){
@@ -82,10 +83,11 @@ export class EntryComponent implements OnInit {
     dialogConfig.disableClose = false; // user can close dialog by clicking outside of it
     dialogConfig.autoFocus = true; // autofocus on first form field
     //dialogConfig.direction = "rtl";
-    // splicing won't work as expected if done upon assigning data["usernames"]
-    this.usernames.splice(this.usernames.indexOf(this.user),1);
+    // (below) make sure we don't list anyone already collaborating on the scribble
+    let availableUsers = this.usernames.filter((elem) => (!this.entry.collaborators.includes(elem)
+        && (this.entry.author != elem)));
     dialogConfig.data = {
-      usernames : this.usernames
+      usernames : availableUsers
     };
 
     const dialogRef = this.dialog.open(ShareEntryComponent, dialogConfig);

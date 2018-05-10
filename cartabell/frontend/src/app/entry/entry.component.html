@@ -22,7 +22,7 @@
       <textarea autosize placeholder="..." (blur)=updateContents($event.target.value)
         title="Scribble contents">{{entry?.contents}}</textarea>
       <div class="dateWrapper" title="Last modified — original author">
-        <span class="date">{{entry?.dateModified | date: 'fullDate' : '+0000' : 'en-us'}} — {{entry?.author}}, {{entry?.collaborators}}</span>
+        <span class="date">{{entry?.dateModified | date: 'fullDate' : '+0000' : 'en-us'}} — {{entry?.author}}</span>
       </div>
     </div>
     <div class="ui segment cf">
